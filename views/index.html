@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://unpkg.com/ipfs/dist/index.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+  $(function() {
+        $('#show').click(function() {
+            //Ajax POST Method TEST
+            $.ajax({
+                url: '/show',
+                dataType: 'json',
+                type: 'POST',
+                data: {
+                  id: "id"
+                },
+                success: function(result) {
+                    //console.log(result)
+                  if (result) {
+
+                    var ihtml = '';
+                    var site = 'http://localhost:8080/ipfs/';
+
+                    for (i = 0; i < 5; i++) {
+                      var url = site + result[i].ipfs_hash;
+                      console.log(url)
+                      ihtml += '<iframe src=' + url + ' frameborder="0"></iframe>';
+                      console.log(ihtml)
+                      // ihtml += '<div><span style="font-weight:bold;">AMOUNT : </span>'+result.txs[i].amount+'</div>';
+                    }
+                    document.getElementById("list").innerHTML = ihtml
+                    console.log(ihtml);
+                  }
+                }})
+            });
+      }
+    );
+  </script>
+
+  <title>Document</title>
+</head>
+<body>
+  <form method='post' enctype="multipart/form-data">
+    <p>video:<input type="file" name="userfile">
+      <input type="submit">
+  </form>
+
+<button id='show'>영상보기</button>
+<div id=list> </div>
+
+</body>
+</html>
